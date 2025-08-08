@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CamZip v3</title>
+  <title>CamZip v4</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,8 +14,9 @@
     <video id="camera" autoplay playsinline></video>
     <button id="takePhoto">📸 Take Photo</button>
     <div id="previewArea"></div>
-    <button id="saveZip">💾 Save to Files</button>
+    <a id="saveZip" class="download-btn">💾 Save to Files</a>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

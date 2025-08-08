@@ -6,8 +6,16 @@ let takePhotoBtn = document.getElementById("takePhoto");
 let saveZipBtn = document.getElementById("saveZip");
 let previewArea = document.getElementById("previewArea");
 
-navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+// Request rear camera
+navigator.mediaDevices.getUserMedia({
+  video: { facingMode: { exact: "environment" } }
+}).then(stream => {
   video.srcObject = stream;
+}).catch(err => {
+  alert("Unable to access rear camera. Using default camera.");
+  navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+    video.srcObject = stream;
+  });
 });
 
 takePhotoBtn.onclick = () => {
@@ -19,21 +27,22 @@ takePhotoBtn.onclick = () => {
     photos.push(blob);
     let img = document.createElement("img");
     img.src = URL.createObjectURL(blob);
-    img.style.width = "100px";
-    img.style.margin = "0.5rem";
     previewArea.appendChild(img);
   }, "image/jpeg");
 };
 
 saveZipBtn.onclick = async () => {
+  if (photos.length === 0) {
+    alert("No photos taken.");
+    return;
+  }
   const zip = new JSZip();
-  const folderName = folderInput.value.trim() || "CamZip_" + new Date().toISOString().slice(0,10);
+  const folderName = (folderInput.value.trim() || "CamZip") + "_" + new Date().toISOString().slice(0,10);
   photos.forEach((blob, i) => {
     zip.file(`${i + 1}.jpg`, blob);
   });
   const content = await zip.generateAsync({ type: "blob" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(content);
-  a.download = folderName + ".zip";
-  a.click();
+  const url = URL.createObjectURL(content);
+  saveZipBtn.href = url;
+  saveZipBtn.download = folderName + ".zip";
 };
