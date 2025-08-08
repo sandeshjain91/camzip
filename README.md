@@ -1,18 +1,19 @@
-# CamZip
+# CamZip v2
 
-CamZip is a simple PWA camera app that:
-- Asks for a folder name once per session
-- Lets you take multiple photos
-- Saves them in a ZIP file with the chosen folder name
-- Works offline (PWA)
-- Can be installed on mobile devices
+This version includes:
+- Auto-suggest session folder name with cursor before date (type prefix then date)
+- Numbered filenames inside the ZIP: 1.jpg, 2.jpg, ...
+- Auto-opens camera when session starts
+- Retake and Delete options for each photo
+- "Save to Files" button that attempts to open the native Share Sheet on mobile (uses Web Share API if available)
+- iOS-styled blue buttons (#007AFF)
 
-## How to Deploy on GitHub Pages
-1. Create a public repo on GitHub (e.g., camzip)
-2. Upload all these files to the repo root
-3. Go to Settings → Pages → Set branch to `main` / root → Save
-4. Access your site at `https://yourusername.github.io/camzip/`
+## Deploy on GitHub Pages
+1. Upload all files from this package to the root of your repo (not in a subfolder).
+2. In GitHub repo: Settings → Pages → Source → main branch / root → Save.
+3. Wait a minute and open `https://yourusername.github.io/reponame/` and test on your phone.
 
-## Custom Domain
-- In your repo, go to Settings → Pages → Add your domain
-- Update your domain's DNS records to point to GitHub Pages
+## Notes on iOS
+- Safari will show the Save-to-Files UI when you tap the Save to Files button (if Web Share is available it will present options).
+- If your browser doesn't support the Web Share API with files, the button falls back to a direct download.
+
